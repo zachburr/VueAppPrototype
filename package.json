@@ -1,0 +1,16 @@
+{
+  "name": "vueappprototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "scripts": {
+    "sass": "sass scss/app.scss css/app.css --style=compressed --watch"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "sass": "^1.104.0"
+  }
+}
