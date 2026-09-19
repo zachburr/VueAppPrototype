@@ -279,16 +279,17 @@
                                     </div>
                                     <button
                                             type="button"
-                                            class="btn btn-outline-danger"
+                                            class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#deleteConcertModal">
-                                        <i class="bi bi-trash" aria-hidden="true"></i>
-                                        Delete
+                                            data-bs-target="#editConcertModal">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Edit Concert
                                     </button>
                                 </div>
                             </div>
                             <!--Card button tabs-->
                             <div class="row g-2 mt-3">
+                                <!--Songs Button tab-->
                                 <div class="col-6 col-sm-auto">
                                     <button
                                             type="button"
@@ -302,7 +303,7 @@
                                         <span class="badge text-bg-secondary">4</span>
                                     </button>
                                 </div>
-
+                                <!--Photos Button tab-->
                                 <div class="col-6 col-sm-auto">
                                     <button
                                             type="button"
@@ -316,7 +317,7 @@
                                         <span class="badge text-bg-secondary">4</span>
                                     </button>
                                 </div>
-
+                                <!--Videos Button tab-->
                                 <div class="col-6 col-sm-auto">
                                     <button
                                             type="button"
@@ -330,6 +331,7 @@
                                         <span class="badge text-bg-secondary">4</span>
                                     </button>
                                 </div>
+                                <!--Info Button tab-->
                                 <div class="col-6 col-sm-auto">
                                     <button
                                             type="button"
@@ -344,98 +346,105 @@
                                     </button>
                                 </div>
                             </div>
-                            <!--Setlist Tab-->
-                            <div class="collapse mt-3" id="songsCollapse">
-                                <div class="setlist">
-                                    <h4>Setlist</h4>
+                            <!--Tab Details-->
+                            <div id="concertDetails">
+                                <!--Setlist Tab-->
+                                <div class="collapse mt-3" id="songsCollapse" data-bs-parent="#concertDetails">
+                                    <div class="setlist">
+                                        <h4>Setlist</h4>
 
-                                    <ol>
-                                        <li>Nightmare</li>
-                                        <li>Afterlife</li>
-                                        <li>Bat Country</li>
-                                        <li>Nobody</li>
-                                        <li>Save Me</li>
-                                        <li>Unholy Confessions</li>
-                                    </ol>
-                                    <div class="pt-4">
-                                        <button type="button" class="btn btn-outline-primary"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editSetlistModal">Edit
-                                        </button>
+                                        <ol>
+                                            <li>Nightmare</li>
+                                            <li>Afterlife</li>
+                                            <li>Bat Country</li>
+                                            <li>Nobody</li>
+                                            <li>Save Me</li>
+                                            <li>Unholy Confessions</li>
+                                        </ol>
+                                        <div class="pt-4">
+                                            <button type="button" class="btn btn-outline-primary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editSetlistModal">Edit
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--Images Tab-->
-                            <div class="collapse mt-2" id="photosCollapse">
-                                <div class="setlist">
-                                    <h4>Images</h4>
+                                <!--Images Tab-->
+                                <div class="collapse mt-2" id="photosCollapse" data-bs-parent="#concertDetails">
+                                    <div class="setlist">
+                                        <h4>Images</h4>
 
-                                    <div class="row">
-                                        <div class="col-6 col-md-2 py-1"><img class="concert-photo"
-                                                                              src="img/A7XLTL.webp" alt="Concert Photo"></div>
-                                        <div class="col-6 col-md-2 py-1"><img class="concert-photo"
-                                                                              src="img/A7xDual.jpg" alt="Concert Photo"></div>
-                                        <div class="col-6 col-md-2 py-1"><img class="concert-photo"
-                                                                              src="img/MShadows.jpg" alt="Concert Photo"></div>
-                                        <div class="col-6 col-md-2 py-1"><img class="concert-photo"
-                                                                              src="img/thestage.jpg" alt="Concert Photo"></div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-2 py-1"><img class="concert-photo"
+                                                                                  src="img/A7XLTL.webp"
+                                                                                  alt="Concert Photo"></div>
+                                            <div class="col-6 col-md-2 py-1"><img class="concert-photo"
+                                                                                  src="img/A7xDual.jpg"
+                                                                                  alt="Concert Photo"></div>
+                                            <div class="col-6 col-md-2 py-1"><img class="concert-photo"
+                                                                                  src="img/MShadows.jpg"
+                                                                                  alt="Concert Photo"></div>
+                                            <div class="col-6 col-md-2 py-1"><img class="concert-photo"
+                                                                                  src="img/thestage.jpg"
+                                                                                  alt="Concert Photo"></div>
+                                        </div>
+                                        <div class="pt-4">
+                                            <button type="button" class="btn btn-outline-primary "
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editPicModal">Edit
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="pt-4">
+                                </div>
+                                <!--Video Tab-->
+                                <div class="collapse mt-2" id="videosCollapse" data-bs-parent="#concertDetails">
+                                    <div class="setlist"><h4>Videos</h4>
+                                        <div class="row video-embed">
+                                            <iframe width="560" height="315"
+                                                    src="https://www.youtube.com/embed/G2MGA4McN1Q?si=rnloJccrIjJreSGz"
+                                                    title="YouTube video player"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    referrerpolicy="strict-origin-when-cross-origin"
+                                                    allowfullscreen>
+
+                                            </iframe>
+                                        </div>
+                                        <div class="pt-4">
+                                            <button type="button" class="btn btn-outline-primary "
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editVidModal">Edit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Info Tab-->
+                                <div class="collapse mt-2" id="infoCollapse" data-bs-parent="#concertDetails">
+                                    <div class="setlist">
+                                        <div class="concert-info">
+                                            <h4>Additional Concert Info</h4>
+                                            <p>
+                                                <strong>Ticket Price:</strong>
+                                                $175.00
+                                            </p>
+                                            <p>
+                                                <strong>Seat:</strong>
+                                                General Admission
+                                            </p>
+                                            <p>
+                                                <strong>Went With:</strong>
+                                                Caleb, Kate, and Sam
+                                            </p>
+                                            <p>
+                                                <strong>Additional Notes:</strong><br>
+                                                One of the best shows I've been to. The Stage and Save Me were the
+                                                highlights of the night.
+                                            </p>
+                                        </div>
                                         <button type="button" class="btn btn-outline-primary "
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#editPicModal">Edit
+                                                data-bs-target="#editInfoModal">Edit
                                         </button>
                                     </div>
-                                </div>
-                            </div>
-                            <!--Video Tab-->
-                            <div class="collapse mt-2" id="videosCollapse">
-                                <div class="setlist"><h4>Videos</h4>
-                                    <div class="row video-embed">
-                                        <iframe width="560" height="315"
-                                                src="https://www.youtube.com/embed/G2MGA4McN1Q?si=rnloJccrIjJreSGz"
-                                                title="YouTube video player"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerpolicy="strict-origin-when-cross-origin"
-                                                allowfullscreen>
-
-                                        </iframe>
-                                    </div>
-                                    <div class="pt-4">
-                                        <button type="button" class="btn btn-outline-primary "
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editVidModal">Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Info Tab-->
-                            <div class="collapse mt-2" id="infoCollapse">
-                                <div class="setlist">
-                                    <div class="concert-info">
-                                        <h4>Additional Concert Info</h4>
-                                        <p>
-                                            <strong>Ticket Price:</strong>
-                                            $175.00
-                                        </p>
-                                        <p>
-                                            <strong>Seat:</strong>
-                                            General Admission
-                                        </p>
-                                        <p>
-                                            <strong>Went With:</strong>
-                                            Caleb, Kate, and Sam
-                                        </p>
-                                        <p>
-                                            <strong>Additional Notes:</strong><br>
-                                            One of the best shows I've been to. The Stage and Save Me were the
-                                            highlights of the night.
-                                        </p>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-primary "
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#editInfoModal">Edit
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -694,6 +703,146 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary">Add Concert</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Edit Concert-->
+        <div class="modal fade" id="editConcertModal" tabindex="-1"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleEditModalLabel">Edit Concert</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="accordion" id="editConcertAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button
+                                            class="accordion-button"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#editBandInfo"
+                                            aria-expanded="true"
+                                            aria-controls="editBandInfo">
+                                        Band / Artist
+                                    </button>
+                                </h2>
+                                <div
+                                        id="editBandInfo"
+                                        class="accordion-collapse collapse show"
+                                        data-bs-parent="#editConcertAccordion">
+                                    <div class="accordion-body">
+                                        <div class="mb-3">
+                                            <label for="editBandSelect" class="form-label">
+                                                Select Band / Artist
+                                            </label>
+                                            <select class="form-select" id="editBandSelect">
+                                                <option selected>Select an Artist</option>
+                                                <option>Avenged Sevenfold</option>
+                                                <option>Ghost</option>
+                                                <option>Sleep Token</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="editNewBand" class="form-label">
+                                                Add New Band / Artist
+                                            </label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="editNewBand"
+                                                    placeholder="Enter new band or artist">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#editVenueInfo"
+                                            aria-expanded="false"
+                                            aria-controls="editVenueInfo">
+                                        Venue
+                                    </button>
+                                </h2>
+                                <div
+                                        id="editVenueInfo"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#editConcertAccordion">
+                                    <div class="accordion-body">
+
+                                        <div class="mb-3">
+                                            <label for="editVenueSelect" class="form-label">
+                                                Select Venue
+                                            </label>
+
+                                            <select class="form-select" id="editVenueSelect">
+                                                <option selected>Credit Union 1 Arena</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="editNewVenue" class="form-label">
+                                                Add New Venue
+                                            </label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="editNewVenue"
+                                                    placeholder="Enter new venue">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#editDateInfo"
+                                            aria-expanded="false"
+                                            aria-controls="editDateInfo">
+                                        Concert Date
+                                    </button>
+                                </h2>
+                                <div
+                                        id="editDateInfo"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#editConcertAccordion">
+                                    <div class="accordion-body">
+                                        <label for="editConcertDate" class="form-label">
+                                            Date
+                                        </label>
+                                        <input
+                                                type="date"
+                                                class="form-control"
+                                                id="editConcertDate">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                                type="button"
+                                class="btn btn-outline-danger me-auto"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteConcertModal">
+                            <i class="bi bi-trash" aria-hidden="true"></i>
+                            Delete
+                        </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
