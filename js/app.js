@@ -1,6 +1,10 @@
 import {createApp} from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+import ConcertCard from "./components/ConcertCard.js";
 
 const app = createApp({
+    components: {
+        ConcertCard,
+    },
     // data for the app
     data: function (){
 
@@ -32,12 +36,6 @@ const app = createApp({
                 attendedWith: '',
                 notes: ''
             },
-            editSetlist: [],
-            editSetlistRef: null,
-            editPhotos: [],
-            editPhotosRef: null,
-            editVideos: [],
-            editVideosRef: null,
             editInfo: {
                 ticketPrice: '',
                 seat: '',
@@ -103,42 +101,24 @@ const app = createApp({
                 this.clearForm();
             }
         },
+        openConcertEdit(concert) {
+            this.editConcert = {...concert};
+            this.editConcertRef = concert;
+        },
         saveConcertEdit: function() {
             Object.assign(this.editConcertRef, this.editConcert)
         },
-        // setlist methods
-        saveSetlistEdit() {
-            this.editSetlistRef.setlist = [...this.editSetlist];
+        saveSetlist(concert, setlist) {
+            concert.setlist = setlist;
         },
-        addSong(){
-            this.editSetlist.push('');
+        savePhotos(concert, photos) {
+            concert.photos = photos;
         },
-        removeSong(song){
-            this.editSetlist.splice(this.editSetlist.indexOf(song), 1)
+        saveVideos(concert, videos) {
+            concert.videos = videos;
         },
-        // photo methods
-        savePhotosEdit(){
-            this.editPhotosRef.photos = [...this.editPhotos];
-        },
-        addPhoto(){
-            this.editPhotos.push('');
-        },
-        removePhoto(photo){
-            this.editPhotos.splice(this.editPhotos.indexOf(photo), 1)
-        },
-        // video methods
-        saveVideosEdit(){
-            this.editVideosRef.videos = [...this.editVideos];
-        },
-        addVideo(){
-            this.editVideos.push('');
-        },
-        removeVideo(video){
-            this.editVideos.splice(this.editVideos.indexOf(video), 1)
-        },
-        // info methods
-        saveInfoEdit: function(){
-            Object.assign(this.editInfoRef, this.editInfo)
+        saveInfo(concert, info) {
+            Object.assign(concert, info)
         },
         clearForm() {
             this.newConcert = {
