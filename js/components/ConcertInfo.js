@@ -1,4 +1,5 @@
 const ConcertInfo = {
+    name: "ConcertInfo",
     data(){
         return {
             editing: false,

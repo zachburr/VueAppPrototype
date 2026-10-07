@@ -1,48 +1,19 @@
 import {createApp} from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import ConcertCard from "./components/ConcertCard.js";
-
+import AddConcertModal from "./components/AddConcertModal.js";
+import editConcertModal from "./components/EditConcertModal.js";
+import BsModal from "./components/BsModal.js";
 const app = createApp({
     components: {
         ConcertCard,
+        AddConcertModal,
+        editConcertModal,
+        BsModal,
     },
     // data for the app
     data: function (){
 
         return{
-            newConcert: {
-                artist: '',
-                venue: '',
-                date: '',
-                rating: 0,
-                setlist: [],
-                photos: [],
-                videos: [],
-                ticketPrice: '',
-                seat: '',
-                attendedWith: '',
-                notes: ''
-            },
-            editConcertRef: {},
-            editConcert:{
-                artist: '',
-                venue: '',
-                date: '',
-                rating: 0,
-                setlist: [],
-                photos: [],
-                videos: [],
-                ticketPrice: '',
-                seat: '',
-                attendedWith: '',
-                notes: ''
-            },
-            editInfo: {
-                ticketPrice: '',
-                seat: '',
-                attendedWith: '',
-                notes: ''
-            },
-            editInfoRef: {},
             concerts: [
                 {
                     id: 1,
@@ -82,31 +53,11 @@ const app = createApp({
         removeConcert: function (concert){
             this.concerts.splice(this.concerts.indexOf(concert), 1)
         },
-        addConcert() {
-            if (this.newConcert.artist) {
-                this.concerts.push({
-                    id: this.concerts.length + 1,
-                    artist: this.newConcert.artist,
-                    venue: this.newConcert.venue,
-                    date: this.newConcert.date,
-                    rating: 0,
-                    setlist: [],
-                    photos: [],
-                    videos: [],
-                    ticketPrice: '',
-                    seat: '',
-                    attendedWith: '',
-                    notes: '',
-                });
-                this.clearForm();
-            }
+        addConcert(concert) {
+                this.concerts.push(concert);
         },
-        openConcertEdit(concert) {
-            this.editConcert = {...concert};
-            this.editConcertRef = concert;
-        },
-        saveConcertEdit: function() {
-            Object.assign(this.editConcertRef, this.editConcert)
+        saveConcertEdit(concert, editedConcert) {
+            Object.assign(concert,  editedConcert);
         },
         saveSetlist(concert, setlist) {
             concert.setlist = setlist;
@@ -120,21 +71,7 @@ const app = createApp({
         saveInfo(concert, info) {
             Object.assign(concert, info)
         },
-        clearForm() {
-            this.newConcert = {
-                artist: '',
-                venue: '',
-                date: '',
-                rating: 0,
-                setlist: [],
-                photos: [],
-                videos: [],
-                ticketPrice: '',
-                seat: '',
-                attendedWith: '',
-                notes: ''
-            };
-        }
+
     },
 
 
@@ -147,16 +84,10 @@ const app = createApp({
         uniqueArtists() {
             return new Set(this.concerts.map(concert => concert.artist)).size;
         },
-        uniqueVenues() {
-
-            return new Set(this.concerts.map(concert => concert.venue)).size;
-        },
-        artistOptions() {
-            return [...new Set(this.concerts.map(concert => concert.artist))];
-        },
-        venueOptions() {
-            return [...new Set(this.concerts.map(concert => concert.venue))];
-        }
+        // uniqueVenues() {
+        //
+        //     return new Set(this.concerts.map(concert => concert.venue)).size;
+        // },
 
     },
 
