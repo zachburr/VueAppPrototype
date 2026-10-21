@@ -3,12 +3,16 @@ import ConcertCard from "./components/ConcertCard.js";
 import AddConcertModal from "./components/AddConcertModal.js";
 import editConcertModal from "./components/EditConcertModal.js";
 import BsModal from "./components/BsModal.js";
+import BasicConcertCard from "./components/BasicConcertCard.js";
+import ConcertListWidget from "./components/ConcertListWidget.js";
 const app = createApp({
     components: {
         ConcertCard,
         AddConcertModal,
         editConcertModal,
         BsModal,
+        BasicConcertCard,
+        ConcertListWidget,
     },
     // data for the app
     data: function (){
@@ -71,6 +75,9 @@ const app = createApp({
         saveInfo(concert, info) {
             Object.assign(concert, info)
         },
+        saveRating(concert, rating) {
+            concert.rating = rating;
+        }
 
     },
 

@@ -7,7 +7,8 @@ import ConcertPhotoCollection from "./ConcertPhotoCollection.js";
 import ConcertVideoCollection from "./ConcertVideoCollection.js";
 import EditConcertModal from "./EditConcertModal.js";
 import ConcertInfo from "./ConcertInfo.js";
-import concertSetlist from "./ConcertSetlist.js";
+import ConcertTabButton from "./ConcertTabButton.js";
+import StarRating from "./StarRating.js";
 
 const ConcertCard = {
     components: {
@@ -17,19 +18,24 @@ const ConcertCard = {
         ConcertVideoCollection,
         ConcertInfo,
         EditConcertModal,
+        ConcertTabButton,
+        StarRating,
     },
     data: function(){
         return {
             keyword: '',
-            sortBy: ''
+            sortBy: 'date'
         }
     },
     props: {
         concerts: {type: Array, required: true },
     },
-    emits: ["save-setlist", "save-photos", "save-videos", "save-info", "edit-concert", "delete-concert"],
+    emits: ["save-setlist", "save-photos", "save-videos", "save-info", "edit-concert", "delete-concert", "save-rating"],
     methods: {
-
+        formattedDate(date){
+            //Adding T00:00:00 uses local midnight so timezone conversion doesn't display the previous day
+            return new Date(date + 'T00:00:00').toLocaleDateString('en-US')
+        }
     },
     computed: {
         filteredConcerts() {
@@ -39,12 +45,12 @@ const ConcertCard = {
                 concert.venue.toLowerCase().includes(this.keyword));
             //sorting for dropdown
             if (!this.sortBy) return filtered;
-
+            //reversed comparison for date, allows it to show concerts in correct order
+            if (this.sortBy === 'date') {
+                return filtered.sort((a,b) => b[this.sortBy].localeCompare(a[this.sortBy]));
+            }
             return filtered.sort((a,b) => a[this.sortBy].localeCompare(b[this.sortBy]));
         },
-
-
-
     },
     template: `
       <div class="mx-4">
@@ -80,7 +86,7 @@ const ConcertCard = {
                   <!--Card header-->
                   <div>
                     <h4 class="concert-title mb-0">
-                      {{ concert.artist }} - {{ concert.date }}
+                      {{ concert.artist }} - {{ formattedDate(concert.date) }}
                     </h4>
                     <p class="concert-venue mt-2">
                       {{ concert.venue }}
@@ -88,48 +94,49 @@ const ConcertCard = {
                   </div>
                   <!--Stars and edit button-->
                   <div class="d-flex flex-column align-items-md-end gap-3">
-                    <div class="rating">
-                      <input type="radio"
-                             :id="'star-' + concert.id + '-5'"
-                             :name="'rating' + concert.id"
-                             value="5"
-                             v-model="concert.rating">
-                      <label :for="'star-' + concert.id + '-5'">
-                        <i class="bi bi-star-fill"></i>
-                      </label>
-                      <input type="radio"
-                             :id="'star-' + concert.id + '-4'"
-                             :name="'rating' + concert.id"
-                             value="4"
-                             v-model="concert.rating">
-                      <label :for="'star-' + concert.id + '-4'">
-                        <i class="bi bi-star-fill"></i>
-                      </label>
-                      <input type="radio"
-                             :id="'star-' + concert.id + '-3'"
-                             :name="'rating' + concert.id"
-                             value="3"
-                             v-model="concert.rating">
-                      <label :for="'star-' + concert.id + '-3'">
-                        <i class="bi bi-star-fill"></i>
-                      </label>
-                      <input type="radio"
-                             :id="'star-' + concert.id + '-2'"
-                             :name="'rating' + concert.id"
-                             value="2"
-                             v-model="concert.rating">
-                      <label :for="'star-' + concert.id + '-2'">
-                        <i class="bi bi-star-fill"></i>
-                      </label>
-                      <input type="radio"
-                             :id="'star-' + concert.id + '-1'"
-                             :name="'rating' + concert.id"
-                             value="1"
-                             v-model="concert.rating">
-                      <label :for="'star-' + concert.id + '-1'">
-                        <i class="bi bi-star-fill"></i>
-                      </label>
-                    </div>
+                    <star-rating :concert="concert" @save="rating => $emit('save-rating', concert, rating)"></star-rating>
+<!--                    <div class="rating">-->
+<!--                      <input type="radio"-->
+<!--                             :id="'star-' + concert.id + '-5'"-->
+<!--                             :name="'rating' + concert.id"-->
+<!--                             value="5"-->
+<!--                             v-model="concert.rating">-->
+<!--                      <label :for="'star-' + concert.id + '-5'">-->
+<!--                        <i class="bi bi-star-fill"></i>-->
+<!--                      </label>-->
+<!--                      <input type="radio"-->
+<!--                             :id="'star-' + concert.id + '-4'"-->
+<!--                             :name="'rating' + concert.id"-->
+<!--                             value="4"-->
+<!--                             v-model="concert.rating">-->
+<!--                      <label :for="'star-' + concert.id + '-4'">-->
+<!--                        <i class="bi bi-star-fill"></i>-->
+<!--                      </label>-->
+<!--                      <input type="radio"-->
+<!--                             :id="'star-' + concert.id + '-3'"-->
+<!--                             :name="'rating' + concert.id"-->
+<!--                             value="3"-->
+<!--                             v-model="concert.rating">-->
+<!--                      <label :for="'star-' + concert.id + '-3'">-->
+<!--                        <i class="bi bi-star-fill"></i>-->
+<!--                      </label>-->
+<!--                      <input type="radio"-->
+<!--                             :id="'star-' + concert.id + '-2'"-->
+<!--                             :name="'rating' + concert.id"-->
+<!--                             value="2"-->
+<!--                             v-model="concert.rating">-->
+<!--                      <label :for="'star-' + concert.id + '-2'">-->
+<!--                        <i class="bi bi-star-fill"></i>-->
+<!--                      </label>-->
+<!--                      <input type="radio"-->
+<!--                             :id="'star-' + concert.id + '-1'"-->
+<!--                             :name="'rating' + concert.id"-->
+<!--                             value="1"-->
+<!--                             v-model="concert.rating">-->
+<!--                      <label :for="'star-' + concert.id + '-1'">-->
+<!--                        <i class="bi bi-star-fill"></i>-->
+<!--                      </label>-->
+<!--                    </div>-->
                     <edit-concert-modal :concert="concert"
                                         :concerts="concerts"
                                         @delete-concert="$emit('delete-concert', concert)"
@@ -141,60 +148,19 @@ const ConcertCard = {
                 <!--Card button tabs-->
                 <div class="row g-2 mt-3">
                   <!--Songs Button tab-->
-                  <div class="col-6 col-sm-auto">
-                    <button
-                        type="button"
-                        class="btn btn-primary w-100 w-sm-auto"
-                        data-bs-toggle="collapse"
-                        :data-bs-target="'#songsCollapse' + concert.id"
-                        aria-expanded="false"
-                        :aria-controls="'songsCollapse' + concert.id">
-
-                      Songs
-                      <span class="badge text-bg-secondary">{{ concert.setlist.length }}</span>
-                    </button>
-                  </div>
+                  <ConcertTabButton title="Songs" :concert-id="concert.id" tab="songs">
+                    <span class="badge text-bg-secondary">{{ concert.setlist.length }}</span>
+                  </ConcertTabButton>
                   <!--Photos Button tab-->
-                  <div class="col-6 col-sm-auto">
-                    <button
-                        type="button"
-                        class="btn btn-primary w-100 w-sm-auto"
-                        data-bs-toggle="collapse"
-                        :data-bs-target="'#photosCollapse' + concert.id"
-                        aria-expanded="false"
-                        :aria-controls="'photosCollapse' + concert.id">
-
-                      Photos
-                      <span class="badge text-bg-secondary">{{ concert.photos.length }}</span>
-                    </button>
-                  </div>
+                  <ConcertTabButton title="Photos" :concert-id="concert.id" tab="photos">
+                    <span class="badge text-bg-secondary">{{ concert.photos.length }}</span>
+                  </ConcertTabButton>
                   <!--Videos Button tab-->
-                  <div class="col-6 col-sm-auto">
-                    <button
-                        type="button"
-                        class="btn btn-primary w-100 w-sm-auto"
-                        data-bs-toggle="collapse"
-                        :data-bs-target="'#videosCollapse' + concert.id"
-                        aria-expanded="false"
-                        :aria-controls="'videosCollapse' + concert.id">
-
-                      Videos
-                      <span class="badge text-bg-secondary">{{ concert.videos.length }}</span>
-                    </button>
-                  </div>
+                  <ConcertTabButton title="Videos" :concert-id="concert.id" tab="videos">
+                    <span class="badge text-bg-secondary">{{ concert.videos.length }}</span>
+                  </ConcertTabButton>
                   <!--Info Button tab-->
-                  <div class="col-6 col-sm-auto">
-                    <button
-                        type="button"
-                        class="btn btn-primary w-100 w-sm-auto"
-                        data-bs-toggle="collapse"
-                        :data-bs-target="'#infoCollapse' + concert.id"
-                        aria-expanded="false"
-                        :aria-controls="'infoCollapse' + concert.id">
-
-                      Info
-                    </button>
-                  </div>
+                  <ConcertTabButton title="Info" :concert-id="concert.id" tab="info"></ConcertTabButton>
                 </div>
               </div>
             </div>

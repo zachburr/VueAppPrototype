@@ -56,6 +56,10 @@ const AddConcertModal = {
         }
     },
     computed: {
+        // Set - JavaScript object that stores a collection of values where each value can only appear once
+        // Map - An array method that goes through each item in an array and creates a new array from the results
+        // => - An arrow function, which is a shorter syntax for writing a function same as: function(concert) {return concert.____;}
+        // size - returns the number of values in a Set
         artistOptions() {
             return [...new Set(this.concerts.map(concert => concert.artist))];
         },
