@@ -95,48 +95,6 @@ const ConcertCard = {
                   <!--Stars and edit button-->
                   <div class="d-flex flex-column align-items-md-end gap-3">
                     <star-rating :concert="concert" @save="rating => $emit('save-rating', concert, rating)"></star-rating>
-<!--                    <div class="rating">-->
-<!--                      <input type="radio"-->
-<!--                             :id="'star-' + concert.id + '-5'"-->
-<!--                             :name="'rating' + concert.id"-->
-<!--                             value="5"-->
-<!--                             v-model="concert.rating">-->
-<!--                      <label :for="'star-' + concert.id + '-5'">-->
-<!--                        <i class="bi bi-star-fill"></i>-->
-<!--                      </label>-->
-<!--                      <input type="radio"-->
-<!--                             :id="'star-' + concert.id + '-4'"-->
-<!--                             :name="'rating' + concert.id"-->
-<!--                             value="4"-->
-<!--                             v-model="concert.rating">-->
-<!--                      <label :for="'star-' + concert.id + '-4'">-->
-<!--                        <i class="bi bi-star-fill"></i>-->
-<!--                      </label>-->
-<!--                      <input type="radio"-->
-<!--                             :id="'star-' + concert.id + '-3'"-->
-<!--                             :name="'rating' + concert.id"-->
-<!--                             value="3"-->
-<!--                             v-model="concert.rating">-->
-<!--                      <label :for="'star-' + concert.id + '-3'">-->
-<!--                        <i class="bi bi-star-fill"></i>-->
-<!--                      </label>-->
-<!--                      <input type="radio"-->
-<!--                             :id="'star-' + concert.id + '-2'"-->
-<!--                             :name="'rating' + concert.id"-->
-<!--                             value="2"-->
-<!--                             v-model="concert.rating">-->
-<!--                      <label :for="'star-' + concert.id + '-2'">-->
-<!--                        <i class="bi bi-star-fill"></i>-->
-<!--                      </label>-->
-<!--                      <input type="radio"-->
-<!--                             :id="'star-' + concert.id + '-1'"-->
-<!--                             :name="'rating' + concert.id"-->
-<!--                             value="1"-->
-<!--                             v-model="concert.rating">-->
-<!--                      <label :for="'star-' + concert.id + '-1'">-->
-<!--                        <i class="bi bi-star-fill"></i>-->
-<!--                      </label>-->
-<!--                    </div>-->
                     <edit-concert-modal :concert="concert"
                                         :concerts="concerts"
                                         @delete-concert="$emit('delete-concert', concert)"

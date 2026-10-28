@@ -1,0 +1,52 @@
+@use "sass:color";
+@import "variables";
+@import "bootstrap/scss/bootstrap";
+
+
+.btn-spotify {
+  background-color: #1db954;
+  border-color: #1db954;
+  color: #000;
+
+  &:hover {
+    background-color: #178e3f;
+    border-color: #1db954;
+    color: #000;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
+}
+
+.btn[aria-expanded="true"] {
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+
+.setlist {
+  padding: 1.25rem;
+  border-left: 4px solid $primary;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+
+  h4 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  ol {
+    margin-bottom: 0;
+    padding-left: 1.5rem;
+  }
+
+  li {
+    padding: 0.35rem 0;
+  }
+}
+
+
+
+
+
+

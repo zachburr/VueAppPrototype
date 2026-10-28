@@ -64,7 +64,7 @@ const EditConcertModal = {
 
     template: `
       <div>
-        <button type="button" class="btn btn-outline-primary mt-3" @click="openConcertEdit(concert)">
+        <button type="button" class="btn btn-primary mt-3" @click="openConcertEdit(concert)">
           <i class="bi bi-pencil-square"></i>
           Edit Concert
         </button>
