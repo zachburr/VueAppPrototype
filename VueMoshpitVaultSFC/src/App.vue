@@ -6,6 +6,9 @@ import editConcertModal from "@/components/EditConcertModal.vue";
 import BsModal from "@/components/BsModal.vue";
 import BasicConcertCard from "@/components/BasicConcertCard.vue";
 import ConcertListWidget from "@/components/ConcertListWidget.vue";
+import {Artist} from "@/models/Artist.js";
+import {Concert} from "@/models/Concert.js";
+import {ArtistCollection} from "@/models/ArtistCollection.js";
 
 export default {
   components: {
@@ -18,48 +21,46 @@ export default {
   },
   // data for the app
   data: function (){
+    let sampleA = new Artist('Avenged Sevenfold')
+    sampleA.concertCollection.addConcert(
+        new Concert(
+            "2026-07-30",
+            "Credit Union 1 Amphitheatre",
+            5,
+            [
+              "Nightmare",
+              "Afterlife",
+              "Bat Country",
+              "Nobody",
+              "Save Me",
+              "Unholy Confessions"
+            ],
+            [
+              "/img/A7XLTL.webp",
+              "/img/A7xDual.jpg",
+              "/img/MShadows.jpg",
+              "/img/thestage.jpg"
+            ],
+            [
+              "https://www.youtube.com/embed/G2MGA4McN1Q?si=rnloJccrIjJreSGz"
+            ],
+            175.00,
+            "General Admission",
+            "Caleb, Kate, and Sam",
+            "One of the best shows I've been to. The Stage and Save Me were the highlights of the night."
+        ));
     return{
-      concerts: [
-        {
-          id: 1,
-          artist: "Avenged Sevenfold",
-          venue: "Credit Union 1 Amphitheatre",
-          date: "2026-07-30",
-          rating: 5,
-          setlist: [
-            "Nightmare",
-            "Afterlife",
-            "Bat Country",
-            "Nobody",
-            "Save Me",
-            "Unholy Confessions"
-          ],
-          photos: [
-            "/img/A7XLTL.webp",
-            "/img/A7xDual.jpg",
-            "/img/MShadows.jpg",
-            "/img/thestage.jpg"
-          ],
-          videos: [
-            "https://www.youtube.com/embed/G2MGA4McN1Q?si=rnloJccrIjJreSGz"
-          ],
-          ticketPrice: "$175.00",
-          seat: "General Admission",
-          attendedWith: "Caleb, Kate, and Sam",
-          notes: "One of the best shows I've been to. The Stage and Save Me were the highlights of the night."
-        }
-      ]
-
+      artistCollection: new ArtistCollection([sampleA]),
     }
   },
   // methods: usually "events" triggered by v-on:
   methods: {
     // concert methods
-    removeConcert: function (concert){
-      this.concerts.splice(this.concerts.indexOf(concert), 1)
+    removeConcert(concert){
+      concert.artist.concertCollection.deleteConcert(concert);
     },
     addConcert(concert) {
-      this.concerts.push(concert);
+      this.artistCollection.addConcertToArtist(concert);
     },
     saveConcertEdit(concert, editedConcert) {
       Object.assign(concert,  editedConcert);
@@ -82,39 +83,22 @@ export default {
 
   },
 
-
-  // computed: values that are updated and cached if dependencies change
-  computed: {
-    // Set - javaScript object that stores a collection of values where each value can only appear once
-    // Map - An array method that goes through each item in an array and creates a new array from the results
-    // => - An arrow function, which is a shorter syntax for writing a function same as: function(concert) {return concert.____;}
-    // size - returns the number of values in a Set
-    uniqueArtists() {
-      return new Set(this.concerts.map(concert => concert.artist)).size;
-    },
-    // uniqueVenues() {
-    //
-    //     return new Set(this.concerts.map(concert => concert.venue)).size;
-    // },
-
-  },
-
   //mounted:  called after the instance has been mounted,
   mounted: function () {
-    if (localStorage.getItem('concerts')){
-      this.concerts = JSON.parse(localStorage.getItem('concerts'))
-    }
+    // if (localStorage.getItem('concerts')){
+    //   this.concerts = JSON.parse(localStorage.getItem('concerts'))
+    // }
   },
 
   // watch:   calls the function if the value changes
   // https://travishorn.com/add-localstorage-to-your-vue-app-in-2-lines-of-code-56eb2c9f371b
   watch: {
-    concerts : {
-      handler: function () {
-        localStorage.setItem('concerts', JSON.stringify(this.concerts))
-      },
-      deep: true, //also watch objects inside array
-    },
+    // concerts : {
+    //   handler: function () {
+    //     localStorage.setItem('concerts', JSON.stringify(this.concerts))
+    //   },
+    //   deep: true, //also watch objects inside array
+    // },
 
 
   },
@@ -149,13 +133,13 @@ export default {
             <li class="nav-item" role="presentation">
               <RouterLink to="/concerts" class="nav-link" exact-active-class="active">
                 All Concerts
-                <span class="badge text-bg-secondary">{{ concerts.length }}</span>
+                <span class="badge text-bg-secondary">{{ }}</span>
               </RouterLink>
             </li>
             <li class="nav-item" role="presentation">
               <RouterLink to="/artists" class="nav-link" exact-active-class="active">
                 Artists
-                <span class="badge text-bg-secondary">{{ uniqueArtists }}</span>
+                <span class="badge text-bg-secondary">{{  }}</span>
               </RouterLink>
             </li>
           </ul>
@@ -174,7 +158,8 @@ export default {
             <!--All concerts tab-->
             <!--Artists tab-->
             <RouterView
-                :concerts="concerts"
+                :artists="artistCollection.artists"
+                :artist-collection="artistCollection"
                 @add-concert="addConcert"
                 @delete-concert="removeConcert"
                 @edit-concert="saveConcertEdit"
@@ -222,9 +207,6 @@ export default {
       </div>
     </div>
   </footer>
-<!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"-->
-<!--          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"-->
-<!--          crossorigin="anonymous"></script>-->
   </body>
 </template>
 

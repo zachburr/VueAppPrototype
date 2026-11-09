@@ -1,5 +1,6 @@
 <script>
 import SingleConcertCard from "@/components/SingleConcertCard.vue";
+import artistView from "@/views/ArtistView.vue";
 
 export default {
   name: "ConcertCard",
@@ -14,39 +15,32 @@ export default {
     }
   },
   props: {
-    concerts: {type: Array, required: true },
+    artists: {type: Array, required: true },
+    artistCollection: {type: Object, required: true },
   },
   emits: ["save-setlist", "save-photos", "save-videos", "save-info", "edit-concert", "delete-concert", "save-rating"],
   computed: {
     filteredConcerts() {
-      //filtering for search
-      const filtered = this.pastConcerts.filter(concert =>
-          concert.artist.toLowerCase().includes(this.keyword) ||
-          concert.venue.toLowerCase().includes(this.keyword));
-      //sorting for dropdown
-      if (!this.sortBy) return filtered;
-      //reversed comparison for date, allows it to show concerts in correct order
-      if (this.sortBy === 'date') {
-        return filtered.sort((a,b) => b[this.sortBy].localeCompare(a[this.sortBy]));
-      }
-      return filtered.sort((a,b) => a[this.sortBy].localeCompare(b[this.sortBy]));
-    },
+        //filtering for search
+      const past = this.artistCollection.allPastConcerts()
+
+      const filtered = past.filter(concert =>
+          concert.artistName().toLowerCase().includes(this.keyword) ||
+          concert.venue.toLowerCase().includes(this.keyword)
+      );
+        //sorting for dropdown
+        if (!this.sortBy) return filtered;
+        //reversed comparison for date, allows it to show concerts in correct order
+        if (this.sortBy === 'date') {
+          return filtered.sort((a,b) => b[this.sortBy].localeCompare(a[this.sortBy]));
+        }
+        if (this.sortBy === 'artist') {
+          return filtered.sort((a,b) => a.artist.name.localeCompare(b.artist.name));
+        }
+        return filtered.sort((a,b) => a[this.sortBy].localeCompare(b[this.sortBy]));
+      },
     upcomingConcerts() {
-      //sets time to midnight
-      const today = new Date().setHours(0, 0, 0, 0);
-
-      return this.concerts.filter(concert =>
-          new Date(concert.date + 'T00:00:00') >= today)
-          //only allows 3 concerts
-          .sort((a, b) => a.date.localeCompare(b.date))
-    },
-    pastConcerts() {
-      //sets time to midnight
-      const today = new Date().setHours(0, 0, 0, 0);
-
-      return this.concerts.filter(concert => new Date(concert.date + 'T00:00:00') < today)
-          //only allows 3 concerts by comparing but in reverse to show most recent first
-          .sort((a, b) => b.date.localeCompare(a.date))
+        return this.artistCollection.allUpcomingConcerts();
     },
   },
 }
@@ -93,7 +87,8 @@ export default {
         v-for="concert in filteredConcerts"
         :key="concert.id"
         :concert="concert"
-        :concerts="concerts"
+        :artists="artists"
+        :artist-collection="artistCollection"
         @delete-concert="concert => $emit('delete-concert', concert)"
         @edit-concert="(concert, edited) => $emit('edit-concert', concert, edited)"
         @save-setlist="(concert, setlist) => $emit('save-setlist', concert, setlist)"
@@ -108,7 +103,8 @@ export default {
           v-for="concert in upcomingConcerts"
           :key="concert.id"
           :concert="concert"
-          :concerts="concerts"
+          :artists="artists"
+          :artist-collection="artistCollection"
           @delete-concert="concert => $emit('delete-concert', concert)"
           @edit-concert="(concert, edited) => $emit('edit-concert', concert, edited)"
           @save-setlist="(concert, setlist) => $emit('save-setlist', concert, setlist)"

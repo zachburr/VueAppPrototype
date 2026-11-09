@@ -26,8 +26,9 @@ export default {
     }
   },
   props: {
+    artists : {type: Array, required: true},
     concert: {type: Object, required: true},
-    concerts: { type: Array, required: true },
+    artistCollection: {type: Object, required: true},
   },
   emits: ["edit-concert", "delete-concert"],
   methods: {
@@ -51,18 +52,6 @@ export default {
     deleteConcert(){
       this.$emit('delete-concert', this.concert)
     },
-  },
-  computed: {
-    // Set - JavaScript object that stores a collection of values where each value can only appear once
-    // Map - An array method that goes through each item in an array and creates a new array from the results
-    // => - An arrow function, which is a shorter syntax for writing a function same as: function(concert) {return concert.____;}
-    // size - returns the number of values in a Set
-    artistOptions() {
-      return [...new Set(this.concerts.map(concert => concert.artist))];
-    },
-    venueOptions() {
-      return [...new Set(this.concerts.map(concert => concert.venue))];
-    }
   },
 }
 </script>
@@ -99,7 +88,7 @@ export default {
                   </label>
                   <select class="form-select" id="bandSelect" v-model="editConcert.artist">
                     <option selected disabled value="">Select an Artist</option>
-                    <option v-for="artist in artistOptions" :key="artist">{{ artist }}</option>
+                    <option v-for="artist in artistCollection.getArtistNames()" :key="artist">{{ artist }}</option>
                   </select>
                 </div>
                 <div class="mb-3">
@@ -141,7 +130,7 @@ export default {
 
                   <select class="form-select" id="venueSelect" v-model="editConcert.venue">
                     <option selected disabled value="">Select a Venue</option>
-                    <option v-for="venue in venueOptions" :key="venue">{{ venue }}</option>
+                    <option v-for="venue in artistCollection.getVenueNames()" :key="venue">{{ venue }}</option>
                   </select>
                 </div>
                 <div class="mb-3">

@@ -6,7 +6,8 @@ export default {
   name: "ConcertView",
   components: {ConcertCard, AddConcertModal},
   props: {
-    concerts: { type: Array, required: true }
+    artists: { type: Array, required: true },
+    artistCollection: { type: Object, required: true },
   },
   emits: [
     'add-concert',
@@ -29,8 +30,9 @@ export default {
         <div class="row align-items-center">
           <div class="col-12 col-md-7">
             <h2>My Concerts</h2>
-            <add-concert-modal :concerts="concerts"
-                               @add-concert="concert => $emit('add-concert', concert)">
+            <add-concert-modal :artists="artists"
+                               @add-concert="concert => $emit('add-concert', concert)"
+                               :artist-collection="artistCollection">
             </add-concert-modal>
           </div>
         </div>
@@ -38,7 +40,8 @@ export default {
     </section>
     <!--Concert Cards-->
     <concert-card
-        :concerts="concerts"
+        :artists="artists"
+        :artistCollection="artistCollection"
         @delete-concert="concert => $emit('delete-concert', concert)"
         @edit-concert="(concert, edited) => $emit('edit-concert', concert, edited)"
         @save-setlist="(concert, setlist) => $emit('save-setlist', concert, setlist)"

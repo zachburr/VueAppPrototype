@@ -4,7 +4,7 @@ export default {
   props: {
     title: {type: String, required: true},
     tab: {type: String, required: true},
-    concertId: {type: Number, required: true},
+    concertId: {type: String, required: true},
   },
 }
 </script>

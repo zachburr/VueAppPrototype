@@ -3,27 +3,14 @@ export default {
   name: "ConcertListWidget",
   props: {
     title: {type: String, required: true},
-    concerts: {type: Array, required: true},
+    artistCollection: { type: Object, required: true },
   },
   computed: {
     upcomingConcerts() {
-      //sets time to midnight
-      const today = new Date().setHours(0, 0, 0, 0);
-
-      return this.concerts.filter(concert =>
-          new Date(concert.date + 'T00:00:00') >= today)
-          //only allows 3 concerts
-          .sort((a, b) => a.date.localeCompare(b.date))
-          .slice(0, 3);
+      return this.artistCollection.allUpcomingConcerts().slice(0, 3);
     },
     pastConcerts() {
-      //sets time to midnight
-      const today = new Date().setHours(0, 0, 0, 0);
-
-      return this.concerts.filter(concert => new Date(concert.date + 'T00:00:00') < today)
-          //only allows 3 concerts by comparing but in reverse to show most recent first
-          .sort((a, b) => b.date.localeCompare(a.date))
-          .slice(0, 3);
+      return this.artistCollection.allPastConcerts().slice(0, 3);
     },
   },
 }

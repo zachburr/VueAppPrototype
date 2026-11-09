@@ -19,3 +19,18 @@
 ### Removed
 * **Home:** Removed card containers surrounding upcoming and past concert lists
 * **Home:** Removed static content from upcoming and past concert lists
+
+## [v4.0] - 11-8-26
+### Added
+* **Models:** Created ```Artist.js``` and ```Concert.js```
+* **Collections:** Created```ArtistColelction.js```, and ```ConcertCollection.js```
+* **Documentation:** Added Doc-Blocks to Methods moved into Models and Collections
+### Changed
+* **Data Structure:** Changed data to have Artist own their own collection of Concerts using composition
+* **Add Functionality:** Refactored functionality that has to do with adding a concert into models and collections
+* **Delete Functionality:** Refactored functionality that has to do with deleting a concert into models and collections
+* **Filtering and Sorting:** Split up Methods into different date checker, filter, and Looping to display into separate methods
+* **Dropdown Methods:** Moved dropdown methods into collections for reuse
+### Removed
+* **Filtering and Sorting:** Removed repeated date checks and comparisons from list components
+* **Dropdown Computed:** Removed dropdown computed methods

@@ -6,7 +6,7 @@ export default {
   name: "HomeView",
   components: {BasicConcertCard, ConcertListWidget},
   props: {
-    concerts: { type: Array, required: true }
+    artistCollection: { type: Object, required: true },
   },
   emits: ['save-rating']
 }
@@ -24,7 +24,7 @@ export default {
       <!--Upcoming concerts-->
       <!-- v-slot allows access to the computed "upcomingConcerts" to use in the slotted basic-concert-card-->
       <Concert-List-Widget title="Upcoming Concerts"
-                           :concerts="concerts"
+                           :artist-collection="artistCollection"
                            v-slot="{upcomingConcerts}">
         <basic-concert-card v-for="concert in upcomingConcerts"
                             :concert="concert"
@@ -35,7 +35,7 @@ export default {
 
       <!--Past Concerts-->
       <concert-list-widget title="Past Concerts"
-                           :concerts="concerts"
+                           :artist-collection="artistCollection"
                            v-slot="{pastConcerts}">
         <basic-concert-card v-for="concert in pastConcerts" :concert="concert"
                             :key="concert.id"

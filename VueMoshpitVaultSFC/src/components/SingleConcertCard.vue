@@ -22,14 +22,9 @@ export default {
   },
   props: {
     concert: { type: Object, required: true },
-    concerts: { type: Array, required: true }
+    artists: { type: Array, required: true },
+    artistCollection: {type: Object, required: true },
   },
-  methods: {
-    formattedDate(date){
-      //Adding T00:00:00 uses local midnight so timezone conversion doesn't display the previous day
-      return new Date(date + 'T00:00:00').toLocaleDateString('en-US')
-    }
-  }
 }
 </script>
 
@@ -47,7 +42,7 @@ export default {
             <!--Card header-->
             <div>
               <h4 class="concert-title mb-0">
-                {{ concert.artist }} - {{ formattedDate(concert.date) }}
+                {{ concert.artist.name }} - {{ concert.formattedDate() }}
               </h4>
               <p class="concert-venue mt-2">
                 {{ concert.venue }}
@@ -57,7 +52,8 @@ export default {
             <div class="d-flex flex-column align-items-md-end gap-3">
               <star-rating :concert="concert" @save="rating => $emit('save-rating', concert, rating)"></star-rating>
               <edit-concert-modal :concert="concert"
-                                  :concerts="concerts"
+                                  :artists="artists"
+                                  :artist-collection="artistCollection"
                                   @delete-concert="$emit('delete-concert', concert)"
                                   @edit-concert="editedConcert => $emit('edit-concert', concert, editedConcert)">
 
