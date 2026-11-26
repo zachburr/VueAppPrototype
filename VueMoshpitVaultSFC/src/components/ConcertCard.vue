@@ -83,6 +83,7 @@ export default {
         </select>
       </div>
     </div>
+    <TransitionGroup name="concert">
     <SingleConcertCard
         v-for="concert in filteredConcerts"
         :key="concert.id"
@@ -97,8 +98,11 @@ export default {
         @save-info="(concert, info) => $emit('save-info', concert, info)"
         @save-rating="(concert, rating) => $emit('save-rating', concert, rating)"
     />
+    </TransitionGroup>
+
     <div v-if="showUpcoming">
       <h3>Upcoming Concerts</h3>
+      <TransitionGroup name="concert">
       <SingleConcertCard
           v-for="concert in upcomingConcerts"
           :key="concert.id"
@@ -113,13 +117,26 @@ export default {
           @save-info="(concert, info) => $emit('save-info', concert, info)"
           @save-rating="(concert, rating) => $emit('save-rating', concert, rating)"
       />
+      </TransitionGroup>
     </div>
+
   </div>
 </template>
 
 <style lang="scss" scoped>
 .concert-list {
   padding-top: 10px;
+}
+//concert card transition
+.concert-enter-active,
+.concert-leave-active,
+.concert-move {
+  transition: all 1s ease;
+}
 
+.concert-enter-from,
+.concert-leave-to {
+  opacity: 0;
+  transform: translateX(500px);
 }
 </style>

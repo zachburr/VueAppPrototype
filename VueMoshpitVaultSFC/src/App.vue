@@ -161,17 +161,23 @@ export default {
             <!--Home tab-->
             <!--All concerts tab-->
             <!--Artists tab-->
-            <RouterView
-                :artists="artistCollection.artists"
-                :artist-collection="artistCollection"
-                @add-concert="addConcert"
-                @delete-concert="removeConcert"
-                @edit-concert="saveConcertEdit"
-                @save-setlist="saveSetlist"
-                @save-photos="savePhotos"
-                @save-videos="saveVideos"
-                @save-info="saveInfo"
-                @save-rating="saveRating"/>
+            <RouterView v-slot="{ Component }">
+              <Transition name="fade" mode="out-in">
+                <component
+                    :is="Component"
+                    :artists="artistCollection.artists"
+                    :artist-collection="artistCollection"
+                    @add-concert="addConcert"
+                    @delete-concert="removeConcert"
+                    @edit-concert="saveConcertEdit"
+                    @save-setlist="saveSetlist"
+                    @save-photos="savePhotos"
+                    @save-videos="saveVideos"
+                    @save-info="saveInfo"
+                    @save-rating="saveRating"
+                />
+              </Transition>
+            </RouterView>
           </div>
         </div>
       </div>
@@ -268,5 +274,15 @@ main {
 footer{
   border-top: 1px solid $primary;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 1);
+}
+//router transition
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
