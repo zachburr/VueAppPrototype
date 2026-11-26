@@ -25,7 +25,7 @@ export default {
     sampleA.concertCollection.addConcert(
         new Concert(
             "2026-07-30",
-            "Credit Union 1 Amphitheatre",
+            new Venue("Credit Union One Amphitheatre"),
             5,
             [
               "Nightmare",
