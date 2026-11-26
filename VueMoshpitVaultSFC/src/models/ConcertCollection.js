@@ -12,6 +12,7 @@ export class ConcertCollection {
     addConcert(concert) {
         concert.artist = this.artist;
         this.concerts.push(concert);
+        console.log(this.concerts);
     }
 
     /**
@@ -22,7 +23,7 @@ export class ConcertCollection {
         const index = this.concerts.indexOf(concert);
         this.concerts.splice(index, 1);
     }
-
+    // TAKE DATE CHECKS AND FILTERS/SORTS THE DATES
     /**
      * filters all concerts by if the date is today or upcoming
      * @returns {Concert[]} array of concerts returned

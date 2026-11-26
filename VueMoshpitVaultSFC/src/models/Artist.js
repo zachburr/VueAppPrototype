@@ -5,8 +5,8 @@ class Artist {
     concertCollection = new ConcertCollection(this);
 
     /**
-     *
-     * @returns {concert[]}
+     * gets the concerts that belong to the artist
+     * @returns {Concert[]}
      */
     get concerts() {
         return this.concertCollection.concerts;
@@ -17,12 +17,13 @@ class Artist {
 
     }
     /**
-     *
+     *returns artist name as a string
      * @returns {string}
      */
     toString(){
         return this.name;
     }
+    // GETS THE LISTS OF FILTERED AND SORTED CONCERTS
     /**
      * returns the artists upcoming concerts sorted by date
      * @returns {Concert[]} an array of upcoming concerts

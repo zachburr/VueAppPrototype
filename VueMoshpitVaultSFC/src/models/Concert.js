@@ -48,6 +48,7 @@ class Concert {
     artistName(){
         return this._artist.name;
     }
+    // DATE CHECKS
     /**
      * checks whether the concert date is today or in the future
      * @returns {boolean} true if the concert is upcoming otherwise false
@@ -85,6 +86,42 @@ class Concert {
     formattedDate(){
         //Adding T00:00:00 uses local midnight so timezone conversion doesn't display the previous day
         return new Date(this.date + 'T00:00:00').toLocaleDateString('en-US')
+    }
+
+    /**
+     * Updates the concert's date and venue using the edited values.
+     * @param {Object} changes - The edited concert information.
+     */
+    updateConcert(changes) {
+        this.date = changes.date;
+        this.venue = changes.venue;
+    }
+
+    /**
+     * updates the concert's setlist
+     * @param {string[]} setlist - the updated list of songs
+     */
+    updateSetlist(setlist) {
+        this.setlist = setlist;
+    }
+
+    updatePhotos(photos) {
+        this.photos = photos;
+    }
+
+    updateVideos(videos) {
+        this.videos = videos;
+    }
+
+    updateInfo(info) {
+        this.ticketPrice = info.ticketPrice;
+        this.seat = info.seat;
+        this.attendedWith = info.attendedWith;
+        this.notes = info.notes;
+    }
+
+    updateRating(rating) {
+        this.rating = rating;
     }
 }
 export {Concert};
