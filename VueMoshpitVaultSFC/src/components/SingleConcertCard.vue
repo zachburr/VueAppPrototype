@@ -45,7 +45,7 @@ export default {
                 {{ concert.artist.name }} - {{ concert.formattedDate() }}
               </h4>
               <p class="concert-venue mt-2">
-                {{ concert.venue }}
+                {{ concert.venue.name }}
               </p>
             </div>
             <!--Stars and edit button-->

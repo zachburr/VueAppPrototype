@@ -26,7 +26,7 @@ export default {
 
       const filtered = past.filter(concert =>
           concert.artistName().toLowerCase().includes(this.keyword) ||
-          concert.venue.toLowerCase().includes(this.keyword)
+          concert.venue.name.toLowerCase().includes(this.keyword)
       );
         //sorting for dropdown
         if (!this.sortBy) return filtered;
@@ -37,7 +37,7 @@ export default {
         if (this.sortBy === 'artist') {
           return filtered.sort((a,b) => a.artist.name.localeCompare(b.artist.name));
         }
-        return filtered.sort((a,b) => a[this.sortBy].localeCompare(b[this.sortBy]));
+        return filtered.sort((a,b) => a.venue.name.localeCompare(b.venue.name));
       },
     upcomingConcerts() {
         return this.artistCollection.allUpcomingConcerts();

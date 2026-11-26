@@ -1,5 +1,6 @@
 import {Artist} from "@/models/Artist.js";
 import {Concert} from "@/models/Concert.js";
+import {Venue} from "@/models/Venue.js";
 
 export class ArtistCollection {
     artists = [];
@@ -69,7 +70,7 @@ export class ArtistCollection {
      */
     addConcertToArtist(concert) {
         const artist = this.artistCheck(concert.artist);
-        const newConcert = new Concert(concert.date, concert.venue);
+        const newConcert = new Concert(concert.date, new Venue(concert.venue));
         artist.concertCollection.addConcert(newConcert);
     }
 
@@ -88,7 +89,7 @@ export class ArtistCollection {
     getVenueNames() {
         const venues = []
         this.artists.forEach(artist =>{
-            const matches = artist.concerts.map(concert => concert.venue);
+            const matches = artist.concerts.map(concert => concert.venue.name);
             venues.push(...matches);
         })
         return [...new Set(venues)];

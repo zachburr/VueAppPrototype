@@ -9,6 +9,7 @@ import ConcertListWidget from "@/components/ConcertListWidget.vue";
 import {Artist} from "@/models/Artist.js";
 import {Concert} from "@/models/Concert.js";
 import {ArtistCollection} from "@/models/ArtistCollection.js";
+import {Venue} from "@/models/Venue.js";
 
 export default {
   components: {
@@ -25,7 +26,7 @@ export default {
     sampleA.concertCollection.addConcert(
         new Concert(
             "2026-07-30",
-            "Credit Union One Amphitheatre",
+            new Venue("Credit Union One Amphitheatre"),
             5,
             [
               "Nightmare",

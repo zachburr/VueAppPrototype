@@ -1,3 +1,4 @@
+import {Venue} from '@/models/Venue.js'
 class Concert {
     constructor(
         date,
@@ -94,7 +95,11 @@ class Concert {
      */
     updateConcert(changes) {
         this.date = changes.date;
-        this.venue = changes.venue;
+
+        //creates a new venue object only if the venue name has changed
+        if (this.venue.name !== changes.venue) {
+            this.venue = new Venue(changes.venue);
+        }
     }
 
     /**

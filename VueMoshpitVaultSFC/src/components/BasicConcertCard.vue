@@ -27,7 +27,7 @@ export default {
         </div>
       </div>
       <p class="mb-1">{{ concert.formattedDate() }}</p>
-      <p class="mb-0">{{ concert.venue }}</p>
+      <p class="mb-0">{{ concert.venue.name }}</p>
 
     </div>
   </div>

@@ -35,7 +35,7 @@ export default {
       //copies the editable values without modifying the original concert
       this.editConcert = {
         artist: concert.artist.name,
-        venue: concert.venue,
+        venue: concert.venue.name,
         date: concert.date
       };
       this.open();
