@@ -11,7 +11,6 @@ export class ArtistCollection {
      * @param artist {Artist}
      *
      */
-    //adds artist to collection
     addArtist(artist) {
         this.artists.push(artist);
     }
@@ -20,10 +19,10 @@ export class ArtistCollection {
      * @param {string} name name of the artist
      * @returns {Artist} matching artist
      */
-    //finds artist name in an array
     findArtist(name) {
         return this.artists.find(artist => artist.name === name);
     }
+    // COMBINES AND SORTS ALL FILTERED CONCERTS
     /**
      * loops through all artists and returns the concerts that happen on or after today
      * @returns {Concert[]}
@@ -93,5 +92,29 @@ export class ArtistCollection {
             venues.push(...matches);
         })
         return [...new Set(venues)];
+    }
+
+    /**
+     * moves a concert to a different artist and removes the old artist
+     * if they no longer have any concerts
+     * @param {Concert} concert - The concert being reassigned
+     * @param {string} artistName - The name of the new artist
+     */
+    changeConcertArtist(concert, artistName) {
+        //stops if the concert already belongs to the selected artist
+        if (concert.artist.name === artistName) {
+            return;
+        }
+        //saves the original artist and finds or creates the new artist
+        const oldArtist = concert.artist;
+        const newArtist = this.artistCheck(artistName);
+        //moves the concert between the artists' collections
+        oldArtist.concertCollection.deleteConcert(concert);
+        newArtist.concertCollection.addConcert(concert);
+        //removes the original artist if they have no remaining concerts
+        if (oldArtist.concerts.length === 0) {
+            const index = this.artists.indexOf(oldArtist);
+            this.artists.splice(index, 1);
+        }
     }
 }

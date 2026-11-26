@@ -63,22 +63,25 @@ export default {
       this.artistCollection.addConcertToArtist(concert);
     },
     saveConcertEdit(concert, editedConcert) {
-      Object.assign(concert,  editedConcert);
+      //updates the concert's date and venue
+      concert.updateConcert(editedConcert);
+      //moves the concert to the selected artist if necessary
+      this.artistCollection.changeConcertArtist(concert, editedConcert.artist);
     },
     saveSetlist(concert, setlist) {
-      concert.setlist = setlist;
+      concert.updateSetlist(setlist);
     },
     savePhotos(concert, photos) {
-      concert.photos = photos;
+      concert.updatePhotos(photos);
     },
     saveVideos(concert, videos) {
-      concert.videos = videos;
+      concert.updateVideos(videos);
     },
     saveInfo(concert, info) {
-      Object.assign(concert, info)
+      concert.updateInfo(info);
     },
     saveRating(concert, rating) {
-      concert.rating = rating;
+      concert.updateRating(rating);
     }
 
   },
@@ -173,7 +176,7 @@ export default {
       </div>
     </main>
   </div>
-  <footer class="mt-5 py-4">
+  <footer class="py-4">
     <div class="container">
       <h6 class="mb-1 text-white">Moshpit Vault</h6>
 

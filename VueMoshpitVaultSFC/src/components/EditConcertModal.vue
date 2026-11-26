@@ -9,19 +9,10 @@ export default {
   data() {
     return{
       deleting: false,
-      editConcertRef: {},
       editConcert:{
         artist: '',
         venue: '',
         date: '',
-        rating: 0,
-        setlist: [],
-        photos: [],
-        videos: [],
-        ticketPrice: '',
-        seat: '',
-        attendedWith: '',
-        notes: ''
       },
     }
   },
@@ -41,8 +32,12 @@ export default {
     },
     openConcertEdit(concert) {
       this.deleting = false;
-      this.editConcert = {...concert};
-      this.editConcertRef = concert;
+      //copies the editable values without modifying the original concert
+      this.editConcert = {
+        artist: concert.artist.name,
+        venue: concert.venue,
+        date: concert.date
+      };
       this.open();
     },
     saveConcertEdit() {
